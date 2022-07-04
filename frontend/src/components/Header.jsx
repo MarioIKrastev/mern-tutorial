@@ -1,4 +1,10 @@
-import { FaSignInAlt, FaSignOutAlt, FaUser } from "react-icons/fa";
+import {
+  FaSignInAlt,
+  FaSignOutAlt,
+  FaUser,
+  FaBook,
+  FaDashcube,
+} from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, reset } from "../features/auth/authSlice";
@@ -17,8 +23,21 @@ function Header() {
   return (
     <header className="header">
       <div className="logo">
-        <Link to="/">GoalSetter</Link>
+        <Link to="/">
+          <button className="btn">
+            <FaBook /> Home
+          </button>
+        </Link>
       </div>
+      {user && (
+        <div className="logo">
+          <Link to="/dashboard">
+            <button className="btn">
+              <FaDashcube /> <p>{`${user && user.name + "'s"}`} dashboard</p>
+            </button>
+          </Link>
+        </div>
+      )}
       <ul>
         {user ? (
           <li>
@@ -30,12 +49,16 @@ function Header() {
           <>
             <li>
               <Link to="/login">
-                <FaSignInAlt /> Login
+                <button className="btn">
+                  <FaSignInAlt /> Login
+                </button>
               </Link>
             </li>
             <li>
               <Link to="/register">
-                <FaUser /> Register
+                <button className="btn">
+                  <FaUser /> Register
+                </button>
               </Link>
             </li>
           </>

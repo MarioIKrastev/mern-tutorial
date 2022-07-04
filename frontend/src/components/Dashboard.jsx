@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getGoals, reset } from "../features/goals/goalSlice";
+import { getGoals } from "../features/goals/goalSlice";
 import GoalItem from "./GoalItem";
 import GoalForm from "./GoalForm";
 import Spinner from "../components/Spinner";
@@ -20,23 +20,24 @@ function Dashboard() {
       console.log(message);
     }
     if (!user) {
-      navigate("/login");
+      navigate("/");
     }
     dispatch(getGoals());
 
-    if (isLoading) {
-      return <Spinner />;
-    }
     /*  return () => {
       dispatch(reset());
     }; */
   }, [user, navigate, isError, message, dispatch]);
 
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <>
       <section className="heading">
-        <h1>Welcome {user && user.name}</h1>
-        <p>Goals Dashboard</p>
+        <h1>Welcome</h1>
+        <p>Set your goal</p>
       </section>
       <GoalForm />
 
